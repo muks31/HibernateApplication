@@ -1,11 +1,17 @@
 package com.mukscode.hibernate.entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="student")
@@ -18,15 +24,35 @@ public class Student {
 	
 	@Id
 	@Column(name="id")
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private int id;
+	@GeneratedValue(strategy = GenerationType.AUTO, generator="native")
+	@GenericGenerator(name="native", strategy="native")
 	
+	/*
+	 * We can also Use UUID as a primary key for our database table and it will generate Unique 128 bit binary code for each entry into the table
+	 * Below code can able to do that part
+	 * Apart from Java code changes we have to also make changes in table column datatype
+	 * 
+	 * @GeneratedValue(generator="UUID")
+	 * @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
+	 * @Column(name = "id",updatable = false, nullable = false)
+	 *  private UUID id ;
+	 *  
+	 *  */
+ 
+  
+ 
+	private int id;
+
 	@Column(name="first_name")
 	private String firstName;
 	
 	@Column(name="last_name")
 	private String lastName;
 	
+	@Column(name="date_of_birth")
+	@Temporal(TemporalType.DATE)
+	private Date dateOfBirth;
+		
 	@Column(name="email")
 	private String email;
 
@@ -35,10 +61,12 @@ public class Student {
 	 * @param lastName
 	 * @param email
 	 */
-	public Student(String firstName, String lastName, String email) {
+	public Student(String firstName, String lastName, String email, Date dateOfBirth) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.email = email;
+		this.dateOfBirth= dateOfBirth;
+		
 	}
 
 	/**
@@ -102,7 +130,15 @@ public class Student {
 	 */
 	@Override
 	public String toString() {
-		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + "]";
+		return "Student [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ",dateOfBirth=" + dateOfBirth +"]";
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 	
 	

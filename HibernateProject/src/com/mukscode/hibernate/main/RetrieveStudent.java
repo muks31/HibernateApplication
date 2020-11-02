@@ -24,7 +24,8 @@ public static void main(String[] args) {
 			
 			//create a student object
 			System.out.println("Creating a new Student object");
-			Student theStudent = new Student("Daffy", "Duck", "duck@yahoo.com");
+			Student theStudent = new Student("Daffy", "Duck", "duck@yahoo.com", null);
+			Student theStudent2 = new Student("Krishna", "K", "krishna@hotmail.com", null);
 			
 			//start a transaction
 			session.beginTransaction();
@@ -32,7 +33,9 @@ public static void main(String[] args) {
 			//save the student object
 			System.out.println("Saving the Student object");
 			System.out.println(theStudent);
+			System.out.println(theStudent2);
 			session.save(theStudent);
+			session.save(theStudent2);
 			
 			//commit the transaction
 			session.getTransaction().commit();

@@ -1,5 +1,8 @@
 package com.mukscode.hibernate.main;
 
+import java.text.ParseException;
+import java.util.Date;
+
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -8,7 +11,7 @@ import com.mukscode.hibernate.entity.Student;
 
 public class CreateStudent {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		
 		// create session factory
 		SessionFactory factory = new Configuration()
@@ -21,10 +24,13 @@ public class CreateStudent {
 		
 		try 
 		{
+			//read the DOB
+			String theDOB = "10/01/1996";
+			Date theDateOB = DateUtils.parseDate(theDOB);
 			
 			//create a student object
 			System.out.println("Creating a new Student object");
-			Student theStudent = new Student("Krish", "Mehra", "Krissh@hotmail.com");
+			Student theStudent = new Student("Johny", "Walker", "walkerJohn@yahoo.com",theDateOB);
 			
 			//start a transaction
 			session.beginTransaction();
